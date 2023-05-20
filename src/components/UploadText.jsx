@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function UploadText(props) {
     let [textFile, setTextFile] = useState(null);
-    let [inputString, setInputString] = useState("");
 
     const reader = new FileReader();
 
@@ -16,18 +15,16 @@ export default function UploadText(props) {
         if (textFile) {
             console.log("Found file");
             reader.readAsText(textFile);
-            setInputString(reader.result);
+            reader.onload = () => {
+                props.setInput(reader.result);
+            }
         }
     }
-
-    useEffect(() => {
-        console.log(inputString);
-    }, [inputString])
 
   return (
     <div>
         <input type="file" name="selectFile" onChange={ event => handleFileChange(event) } />
-        <div>{textFile && `${textFile.name}`}</div>
+        {/* <div>{textFile && `${textFile.name}`}</div> */}
         <button type="button" name="uploadText" className="btn btn-primary" onClick={ handleSubmit }>Upload Text File</button>
     </div>
   )

@@ -3,11 +3,13 @@ import Dropdown from "./Dropdown";
 import Recordinput from "./Recordinput";
 import Recordoutput from "./Recordoutput";
 import libreTranslateAPI from './libreTranslateAPI';
+import UploadText from "./UploadText";
 
 const languageMap = { //mapping dropdown list to match libretranslate API
     english: 'en',
     japanese: 'ja',
     french: 'fr',
+    german: 'de',
 };
 
 export default function Homepage() {
@@ -33,6 +35,7 @@ export default function Homepage() {
 
     return (
       <div>
+          <UploadText setInput={ setInput } />
           <form onSubmit={handleTranslate}>
               <Dropdown sourceLang={sourceLang} setSourceLang={setSourceLang} />
               <Recordinput input={input} setInput={setInput} />
