@@ -1,28 +1,45 @@
 import { useState } from "react";
 import Dropdown from "./Dropdown";
-import UploadText from "./UploadText";
+import Recordinput from "./Recordinput";
+import Recordoutput from "./Recordoutput";
+import libreTranslateAPI from './libreTranslateAPI';
+
+const languageMap = { //mapping dropdown list to match libretranslate API
+    english: 'en',
+    japanese: 'ja',
+    french: 'fr',
+};
 
 export default function Homepage() {
-  const [sourceLang, setSourceLang] = useState("english");
-  const [outputLang, setOutputLang] = useState("english");
+    const [sourceLang, setSourceLang] = useState("english");
+    const [outputLang, setOutputLang] = useState("english");
+    const [input, setInput] = useState('');
+    const [translation, setTranslation] = useState('');
 
-  return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-        <UploadText />
-      <div className="row justify-content-center">
-        <div className="col-md-6 d-flex justify-content-center">
-          <form className="d-flex flex-column align-items-center">
-            <Dropdown sourceLang={sourceLang} setSourceLang={setSourceLang} />
-            <textarea name="source-text" className="form-control" cols="30" rows="10"></textarea>
+    const handleTranslate = async (event) => {
+        event.preventDefault(); // Stops the page from reloading after clicking the translate button
+
+        console.log(`Translating from ${languageMap[sourceLang]} to ${languageMap[outputLang]}`); // Requesting the translation tool to translate our text
+        console.log(`Text to translate: ${input}`);
+
+        try { //Try and catch method to handle errors
+            const response = await libreTranslateAPI.translateText(input, languageMap[sourceLang], languageMap[outputLang]);
+            console.log('Translation response:', response.data);
+            setTranslation(response.data.translatedText);
+        } catch (error) {
+            console.error('Failed to translate text:', error); //To catch the error
+        }
+    };
+
+    return (
+      <div>
+          <form onSubmit={handleTranslate}>
+              <Dropdown sourceLang={sourceLang} setSourceLang={setSourceLang} />
+              <Recordinput input={input} setInput={setInput} />
+              <button type="submit">Translate</button>
+              <Dropdown outputLang={outputLang} setOutputLang={setOutputLang} />
+              <Recordoutput outputText={translation} />
           </form>
-        </div>
-        <div className="col-md-6 d-flex justify-content-center">
-          <form className="d-flex flex-column align-items-center">
-            <Dropdown outputLang={outputLang} setOutputLang={setOutputLang} />
-            <textarea name="translated-text" className="form-control" cols="30" rows="10"></textarea>
-          </form>
-        </div>
       </div>
-    </div>
   );
 }
