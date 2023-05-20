@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Dropdown from "./Dropdown";
+import UploadText from "./UploadText";
 
 export default function Homepage() {
   const [sourceLang, setSourceLang] = useState("english");
@@ -7,6 +8,7 @@ export default function Homepage() {
 
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
+        <UploadText />
       <div className="row justify-content-center">
         <div className="col-md-6 d-flex justify-content-center">
           <form className="d-flex flex-column align-items-center">
