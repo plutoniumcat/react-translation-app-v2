@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export default function Dropdown(props) {
     const menuType = props.sourceLang ? "source-lang" : "output-lang";
   

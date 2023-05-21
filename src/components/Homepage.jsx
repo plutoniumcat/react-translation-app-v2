@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dropdown from "./Dropdown";
 import Recordinput from "./Recordinput";
 import Recordoutput from "./Recordoutput";
@@ -37,10 +37,10 @@ export default function Homepage() {
       <div>
           <UploadText setInput={ setInput } />
           <form onSubmit={handleTranslate} className="d-flex flex-column align-items-center">
-              <Dropdown sourceLang={sourceLang} setSourceLang={setSourceLang} />
+              <Dropdown value={sourceLang} sourceLang={sourceLang} setSourceLang={setSourceLang} />
               <Recordinput input={input} setInput={setInput} />
               <button type="submit">Translate</button>
-              <Dropdown outputLang={outputLang} setOutputLang={setOutputLang} />
+              <Dropdown value={outputLang} outputLang={outputLang} setOutputLang={setOutputLang} />
               <Recordoutput outputText={translation} />
           </form>
       </div>

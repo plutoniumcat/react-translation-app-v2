@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import Tesseract from 'tesseract.js';
+import libreTranslateAPI from "./libreTranslateAPI";
 import Recordinput from "./Recordinput";
 import Recordoutput from "./Recordoutput";
+import Dropdown from "./Dropdown";
+import { libreLangMap, tessaractLangMap } from '../data/languageMaps';
 
 export default function ImageReader() {
     const [inputString, setInputString] = useState("");
@@ -19,8 +22,8 @@ export default function ImageReader() {
       if (imageFile) {
         (async () => {
           const worker = await Tesseract.createWorker();
-          await worker.loadLanguage('eng');
-          await worker.initialize('eng');
+          await worker.loadLanguage(tessaractLangMap[sourceLang]);
+          await worker.initialize(tessaractLangMap[sourceLang]);
           const { data: { text } } = await worker.recognize(imageFile);
           setInputString(text);
           await worker.terminate();
@@ -31,18 +34,22 @@ export default function ImageReader() {
       }
     }
 
-    useEffect(async () => {
-      console.log(`Translating from ${languageMap[sourceLang]} to ${languageMap[outputLang]}`); // Requesting the translation tool to translate our text
+    const handleTranslate = async () => {
+      console.log(`Translating from ${libreLangMap[sourceLang]} to ${libreLangMap[outputLang]}`); // Requesting the translation tool to translate our text
       console.log(`Text to translate: ${inputString}`);
   
       try { //Try and catch method to handle errors
-          const response = await libreTranslateAPI.translateText(inputString, languageMap[sourceLang], languageMap[outputLang]);
+          const response = await libreTranslateAPI.translateText(inputString, libreLangMap[sourceLang], libreLangMap[outputLang]);
           console.log('Translation response:', response.data);
           setOutputString(response.data.translatedText);
       } catch (error) {
           console.error('Failed to translate text:', error); //To catch the error
       }
-    }, [input]);
+    }
+
+    useEffect(() => {
+      handleTranslate();
+    }, [inputString]);
 
   return (
     <div>
