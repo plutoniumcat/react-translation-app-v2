@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 export default function Dropdown(props) {
   const menuType = props.sourceLang ? "source-lang" : "output-lang";
 
@@ -15,20 +13,13 @@ export default function Dropdown(props) {
       console.log("Language dropdown could not detect if it is source or output.");
     }
   };
-
-  // Code to update the selected value of the dropdown when using the swap fields button
-  useEffect(() => {
-    if (props.outputLang) {
-      const dropdown = document.querySelector(`select[name=${menuType}]`);
-      dropdown.value = props.outputLang;
-    }
-  }, [props.outputLang, menuType]);
   
     return (
       <div>
         <label htmlFor={menuType}>Language:</label>
-        <select name={menuType} onChange={(e) => languageSelect(e)}>
+        <select value={props.sourceLang? props.sourceLang: props.outputLang} name={menuType} onChange={(e) => languageSelect(e)}>
           <option value="english">English</option>
+          <option value="auto">Auto Detect</option>
           <option value="arabic">Arabic</option>
           <option value="azerbaijani">Azerbaijani</option>
           <option value="catalan">Catalan</option>
@@ -58,7 +49,6 @@ export default function Dropdown(props) {
           <option value="swedish">Swedish</option>
           <option value="turkish">Turkish</option>
           <option value="ukrainian">Ukrainian</option>
-          <option value="auto">Auto Detect</option>
         </select>
       </div>
     );
