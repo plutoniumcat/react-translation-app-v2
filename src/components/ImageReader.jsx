@@ -18,7 +18,7 @@ export default function ImageReader() {
         setImageFile(URL.createObjectURL(e.target.files[0]));
     }
 
-    const handleSubmit = () => {
+    const handleImgSubmit = () => {
       if (imageFile) {
         (async () => {
           const worker = await Tesseract.createWorker();
@@ -46,6 +46,11 @@ export default function ImageReader() {
           console.error('Failed to translate text:', error); //To catch the error
       }
     }
+    
+    const handleTxtSubmit = (e) => {
+      e.preventDefault();
+      handleTranslate();
+    }
 
     useEffect(() => {
       handleTranslate();
@@ -55,11 +60,12 @@ export default function ImageReader() {
     <div>
         <label htmlFor="image-upload">Select an image to upload</label>
         <input type="file" name="image-upload" onChange={ (e) => handleFile(e) } />
-        <button onClick={ handleSubmit }>Upload</button>
+        <button onClick={ handleImgSubmit }>Upload</button>
         <Dropdown sourceLang={sourceLang} setSourceLang={setSourceLang} />
         <Recordinput input={inputString} setInput={setInputString} />
         <Dropdown outputLang={outputLang} setOutputLang={setOutputLang} />
         <Recordoutput outputText={outputString} />
+        <button type="submit" onClick={handleTxtSubmit}>Translate</button>
     </div>
   )
 }
