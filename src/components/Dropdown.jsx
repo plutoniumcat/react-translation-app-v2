@@ -1,3 +1,6 @@
+import React, { useEffect } from "react";
+
+
 export default function Dropdown(props) {
   const menuType = props.sourceLang ? "source-lang" : "output-lang";
 
@@ -6,18 +9,37 @@ export default function Dropdown(props) {
     if (props.setSourceLang) {
       props.setSourceLang(selectedLanguage);
       console.log(`Source language set to ${selectedLanguage}`);
+      localStorage.setItem("sourceLang", selectedLanguage);
     } else if (props.setOutputLang) {
       props.setOutputLang(selectedLanguage);
       console.log(`Output language set to ${selectedLanguage}`);
+      localStorage.setItem("outputLang", selectedLanguage);
     } else {
       console.log("Language dropdown could not detect if it is source or output.");
     }
   };
-  
-    return (
-      <div>
-        <label htmlFor={menuType}>Language:</label>
-        <select value={props.sourceLang? props.sourceLang: props.outputLang} name={menuType} onChange={(e) => languageSelect(e)}>
+
+  useEffect(() => {
+    const savedSourceLang = localStorage.getItem("sourceLang");
+    const savedOutputLang = localStorage.getItem("outputLang");
+
+    if (props.setSourceLang && savedSourceLang) {
+      props.setSourceLang(savedSourceLang);
+    }
+
+    if (props.setOutputLang && savedOutputLang) {
+      props.setOutputLang(savedOutputLang);
+    }
+  }, [props.setSourceLang, props.setOutputLang]);
+
+  return (
+    <div>
+      <label htmlFor={menuType}>Language:</label>
+      <select
+        name={menuType}
+        onChange={(e) => languageSelect(e)}
+        value={props.sourceLang || props.outputLang}
+      >
           <option value="english">English</option>
           <option value="auto">Auto Detect</option>
           <option value="arabic">Arabic</option>

@@ -1,15 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dropdown from "./Dropdown";
 import Recordinput from "./Recordinput";
 import Recordoutput from "./Recordoutput";
 import libreTranslateAPI from './libreTranslateAPI';
 import UploadText from "./UploadText";
+import { libreLangMap } from "../data/languageMaps";
 
-const languageMap = {
-  english: 'en',
-  japanese: 'ja',
-  french: 'fr',
-  german: 'de',
+
+const languageMap = { libreLangMap
 };
 
 export default function Homepage() {
@@ -44,18 +42,30 @@ export default function Homepage() {
     setTranslation(tempInput);
   };
 
-  return (
-    <div>
-      <UploadText setInput={setInput} />
-      <form onSubmit={handleTranslate} className="d-flex flex-column align-items-center">
-        <Dropdown sourceLang={sourceLang} setSourceLang={setSourceLang} />
-        <Recordinput input={input} setInput={setInput} />
-        <button type="submit">Translate</button>
-        <Dropdown outputLang={outputLang} setOutputLang={setOutputLang} />
-        <Recordoutput outputText={translation} />
-        
-        <button type="button" onClick={handleSwapFields}>Swap Fields</button>
-      </form>
-    </div>
+    // eslint-disable-next-line no-undef
+    useEffect(() => {
+        const savedSourceLang = localStorage.getItem("sourceLang");
+        const savedOutputLang = localStorage.getItem("outputLang");
+    
+        if (savedSourceLang) {
+          setSourceLang(savedSourceLang);
+        }
+    
+        if (savedOutputLang) {
+          setOutputLang(savedOutputLang);
+        }
+      }, []);
+
+    return (
+      <div>
+          <UploadText setInput={ setInput } />
+          <form onSubmit={handleTranslate} className="d-flex flex-column align-items-center">
+              <Dropdown value={sourceLang} sourceLang={sourceLang} setSourceLang={setSourceLang} />
+              <Recordinput input={input} setInput={setInput} />
+              <button type="submit">Translate</button>
+              <Dropdown value={outputLang} outputLang={outputLang} setOutputLang={setOutputLang} />
+              <Recordoutput outputText={translation} />
+          </form>
+      </div>
   );
 }

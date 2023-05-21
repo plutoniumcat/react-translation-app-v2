@@ -5,7 +5,7 @@ export default function Navbar() {
                 <a href="/">Home</a>
             </li>
             <li>
-                <a href="/image">Text to Image</a>
+                <a href="/image">Image to Text</a>
             </li>
         </ul>
     </nav>
