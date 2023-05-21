@@ -6,7 +6,7 @@ export default function ImageReader() {
     const [inputString, setInputString] = useState("");
     const [outputString, setOutputString] = useState("")
     const [imageFile, setImageFile] = useState(null);
-    const [base64file, setBase64File] = useState(null);
+    // const [base64file, setBase64File] = useState(null);
 
     const handleFile = (e) => {
         console.log(e.target.files)
@@ -19,7 +19,7 @@ export default function ImageReader() {
           const worker = await Tesseract.createWorker();
           await worker.loadLanguage('eng');
           await worker.initialize('eng');
-          const { data: { text } } = await worker.recognize( { imageFile } );
+          const { data: { text } } = await worker.recognize(imageFile);
           console.log(text);
           await worker.terminate();
         })();
