@@ -4,13 +4,11 @@ import Recordinput from "./Recordinput";
 import Recordoutput from "./Recordoutput";
 import libreTranslateAPI from './libreTranslateAPI';
 import UploadText from "./UploadText";
+import { libreLangMap } from "../data/languageMaps";
 import PreLoader1 from "./PreLoader1";
 
-const languageMap = {
-  english: 'en',
-  japanese: 'ja',
-  french: 'fr',
-  german: 'de',
+
+const languageMap = { libreLangMap
 };
 
 export default function Homepage() {
@@ -22,7 +20,11 @@ export default function Homepage() {
 
   const handleTranslate = async (event) => {
     event.preventDefault();
+  const handleTranslate = async (event) => {
+    event.preventDefault();
 
+    console.log(`Translating from ${languageMap[sourceLang]} to ${languageMap[outputLang]}`);
+    console.log(`Text to translate: ${input}`);
     console.log(`Translating from ${languageMap[sourceLang]} to ${languageMap[outputLang]}`);
     console.log(`Text to translate: ${input}`);
 

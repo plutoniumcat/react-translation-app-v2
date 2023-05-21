@@ -8,6 +8,5 @@ export default function Navbar() {
                 <a href="/image">Image to Text</a>
             </li>
         </ul>
-
     </nav>
 }
