@@ -1,12 +1,14 @@
-import { Button } from "bootstrap";
 import { useEffect, useState } from "react";
 import Tesseract from 'tesseract.js';
+import Recordinput from "./Recordinput";
+import Recordoutput from "./Recordoutput";
 
 export default function ImageReader() {
     const [inputString, setInputString] = useState("");
     const [outputString, setOutputString] = useState("")
     const [imageFile, setImageFile] = useState(null);
-    // const [base64file, setBase64File] = useState(null);
+    const [sourceLang, setSourceLang] = useState("english");
+    const [outputLang, setOutputLang] = useState("english");
 
     const handleFile = (e) => {
         console.log(e.target.files)
@@ -20,7 +22,7 @@ export default function ImageReader() {
           await worker.loadLanguage('eng');
           await worker.initialize('eng');
           const { data: { text } } = await worker.recognize(imageFile);
-          console.log(text);
+          setInputString(text);
           await worker.terminate();
         })();
       }
@@ -29,36 +31,28 @@ export default function ImageReader() {
       }
     }
 
-    // useEffect(() => {
-    //     let myHeaders = new Headers();
-    //     myHeaders.append("apikey", "K87327703988957");
-
-    //     let formdata = new FormData();
-    //     formdata.append("language", "jpn");
-    //     formdata.append("base64Image", { base64file });
-    //     formdata.append("filetype", "png")
-    //     formdata.append("detectOrientation", "true");
-    //     formdata.append("scale", "true");
-
-    //     let requestOptions = {
-    //         method: 'POST',
-    //         headers: myHeaders,
-    //         body: formdata,
-    //         redirect: 'follow'
-    //       };
-
-    //     fetch("https://api.ocr.space/parse/image", requestOptions)
-    //     .then(response => response.text())
-    //     .then(result => setInputString(result))
-    //     .catch(error => console.log('error', error));
-    // }, [base64file]);
+    useEffect(async () => {
+      console.log(`Translating from ${languageMap[sourceLang]} to ${languageMap[outputLang]}`); // Requesting the translation tool to translate our text
+      console.log(`Text to translate: ${inputString}`);
+  
+      try { //Try and catch method to handle errors
+          const response = await libreTranslateAPI.translateText(inputString, languageMap[sourceLang], languageMap[outputLang]);
+          console.log('Translation response:', response.data);
+          setOutputString(response.data.translatedText);
+      } catch (error) {
+          console.error('Failed to translate text:', error); //To catch the error
+      }
+    }, [input]);
 
   return (
     <div>
         <label htmlFor="image-upload">Select an image to upload</label>
         <input type="file" name="image-upload" onChange={ (e) => handleFile(e) } />
         <button onClick={ handleSubmit }>Upload</button>
-        <textarea name="translated-text" readOnly={ true } value={ outputString } cols="30" rows="10"></textarea>
+        <Dropdown sourceLang={sourceLang} setSourceLang={setSourceLang} />
+        <Recordinput input={inputString} setInput={setInputString} />
+        <Dropdown outputLang={outputLang} setOutputLang={setOutputLang} />
+        <Recordoutput outputText={outputString} />
     </div>
   )
 }
