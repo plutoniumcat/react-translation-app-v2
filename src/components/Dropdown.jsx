@@ -18,11 +18,13 @@ export default function Dropdown(props) {
   return (
     <div>
         <label htmlFor={ menuType }>Language:</label>
+        
         <select name={ menuType } onChange={ (e) => languageSelect(e) }>
             <option value="english">English</option>
             <option value="japanese">Japanese</option>
             <option value="french">French</option>
         </select>
+        <button class="button">Submit</button>
     </div>
   )
 }
