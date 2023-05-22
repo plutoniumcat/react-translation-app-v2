@@ -4,7 +4,7 @@ import logo from '../images/translator-pu-logo.svg';
 export function Header() {
   return (
     <div class="text-center" >
-      <header className="App-header m-4 pb-4">
+      <header className="App-header m-4 ">
         <img src={logo} className="img-fluid" alt="logo" width = "50%" />
       </header>
     </div>

@@ -1,3 +1,6 @@
+import "../css/Dropdown.css" 
+
+
 export default function Dropdown(props) {
     const menuType = props.sourceLang ? "source-lang" : "output-lang";
   
@@ -15,9 +18,9 @@ export default function Dropdown(props) {
     };
   
     return (
-      <div>
-        <label htmlFor={menuType}>Language:</label>
-        <select name={menuType} onChange={(e) => languageSelect(e)}>
+      <div className="p-3">
+        <label htmlFor={menuType} className="labelFont">Language:</label>
+        <select name={menuType} onChange={(e) => languageSelect(e)} className="border border-secondary">
           <option value="english">English</option>
           <option value="arabic">Arabic</option>
           <option value="azerbaijani">Azerbaijani</option>
