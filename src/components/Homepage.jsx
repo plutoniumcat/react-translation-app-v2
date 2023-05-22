@@ -4,13 +4,7 @@ import Recordinput from "./Recordinput";
 import Recordoutput from "./Recordoutput";
 import libreTranslateAPI from './libreTranslateAPI';
 import UploadText from "./UploadText";
-
-const languageMap = { //mapping dropdown list to match libretranslate API
-    english: 'en',
-    japanese: 'ja',
-    french: 'fr',
-    german: 'de',
-};
+import languageMap from './Langmapping';
 
 export default function Homepage() {
     const [sourceLang, setSourceLang] = useState("english");
