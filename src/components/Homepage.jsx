@@ -36,7 +36,7 @@ export default function Homepage() {
     return (
       <div>
           <UploadText setInput={ setInput } />
-          <form onSubmit={handleTranslate}>
+          <form onSubmit={handleTranslate} className="d-flex flex-column align-items-center">
               <Dropdown sourceLang={sourceLang} setSourceLang={setSourceLang} />
               <Recordinput input={input} setInput={setInput} />
               <button type="submit">Translate</button>
