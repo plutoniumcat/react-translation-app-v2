@@ -16,7 +16,7 @@ export default function Dropdown(props) {
     }
   };
 
-  // Add this code to update the selected value of the dropdown
+  // Code to update the selected value of the dropdown when using the swap fields button
   useEffect(() => {
     if (props.outputLang) {
       const dropdown = document.querySelector(`select[name=${menuType}]`);

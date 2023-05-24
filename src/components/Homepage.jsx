@@ -32,7 +32,7 @@ export default function Homepage() {
       console.error('Failed to translate text:', error);
     }
   };
-
+  // Function to handle swap fields
   const handleSwapFields = () => {
     const tempInput = input;
     const tempSourceLang = sourceLang;
@@ -43,7 +43,7 @@ export default function Homepage() {
     setOutputLang(tempSourceLang);
     setTranslation(tempInput);
   
-    // Update the input dropdown value based on the output language
+    // Workaround to update input dropdown value based on the output language
     const inputDropdown = document.querySelector('select[name="source-lang"]');
     if (inputDropdown) {
       inputDropdown.value = tempOutputLang;
@@ -59,6 +59,7 @@ export default function Homepage() {
         <button type="submit">Translate</button>
         <Dropdown outputLang={outputLang} setOutputLang={setOutputLang} />
         <Recordoutput outputText={translation} />
+        
         <button type="button" onClick={handleSwapFields}>Swap Fields</button>
       </form>
     </div>
