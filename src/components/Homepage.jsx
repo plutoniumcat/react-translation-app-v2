@@ -4,14 +4,10 @@ import Recordinput from "./Recordinput";
 import Recordoutput from "./Recordoutput";
 import libreTranslateAPI from './libreTranslateAPI';
 import UploadText from "./UploadText";
-import React, { useEffect } from "react";
+import { libreLangMap } from "../data/languageMaps";
 
 
-const languageMap = { //mapping dropdown list to match libretranslate API
-    english: 'en',
-    japanese: 'ja',
-    french: 'fr',
-    german: 'de',
+const languageMap = { libreLangMap
 };
 
 export default function Homepage() {
