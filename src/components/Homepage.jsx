@@ -4,6 +4,8 @@ import Recordinput from "./Recordinput";
 import Recordoutput from "./Recordoutput";
 import libreTranslateAPI from './libreTranslateAPI';
 import UploadText from "./UploadText";
+import React, { useEffect } from "react";
+
 
 const languageMap = { //mapping dropdown list to match libretranslate API
     english: 'en',
@@ -32,6 +34,20 @@ export default function Homepage() {
             console.error('Failed to translate text:', error); //To catch the error
         }
     };
+
+    // eslint-disable-next-line no-undef
+    useEffect(() => {
+        const savedSourceLang = localStorage.getItem("sourceLang");
+        const savedOutputLang = localStorage.getItem("outputLang");
+    
+        if (savedSourceLang) {
+          setSourceLang(savedSourceLang);
+        }
+    
+        if (savedOutputLang) {
+          setOutputLang(savedOutputLang);
+        }
+      }, []);
 
     return (
       <div>
