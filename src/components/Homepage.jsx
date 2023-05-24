@@ -4,41 +4,10 @@ import Recordinput from "./Recordinput";
 import Recordoutput from "./Recordoutput";
 import libreTranslateAPI from './libreTranslateAPI';
 import UploadText from "./UploadText";
+import { libreLangMap } from "../data/languageMaps";
 
 
-
-const languageMap = { //mapping dropdown list to match libretranslate API
-  english: 'en',
-  arabic: 'ar',
-  azerbaijani: 'az',
-  catalan: 'ca',
-  chinese: 'zh',
-  czech: 'cs',
-  danish: 'da',
-  dutch: 'nl',
-  esperanto: 'eo',
-  finnish: 'fi',
-  french: 'fr',
-  german: 'de',
-  greek: 'el',
-  hebrew: 'he',
-  hindi: 'hi',
-  hungarian: 'hu',
-  indonesian: 'id',
-  irish: 'ga',
-  italian: 'it',
-  japanese: 'ja',
-  korean: 'ko',
-  persian: 'fa',
-  polish: 'pl',
-  portuguese: 'pt',
-  russian: 'ru',
-  slovak: 'sk',
-  spanish: 'es',
-  swedish: 'sv',
-  turkish: 'tr',
-  ukrainian: 'uk',
-  auto: 'auto'
+const languageMap = { libreLangMap
 };
 
 export default function Homepage() {
