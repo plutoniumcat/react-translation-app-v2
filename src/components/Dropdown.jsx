@@ -1,18 +1,28 @@
+import { useEffect } from 'react';
+
 export default function Dropdown(props) {
-    const menuType = props.sourceLang ? "source-lang" : "output-lang";
-  
-    const languageSelect = (event) => {
-      const selectedLanguage = event.target.value;
-      if (props.setSourceLang) {
-        props.setSourceLang(selectedLanguage);
-        console.log(`Source language set to ${selectedLanguage}`);
-      } else if (props.setOutputLang) {
-        props.setOutputLang(selectedLanguage);
-        console.log(`Output language set to ${selectedLanguage}`);
-      } else {
-        console.log("Language dropdown could not detect if it is source or output.");
-      }
-    };
+  const menuType = props.sourceLang ? "source-lang" : "output-lang";
+
+  const languageSelect = (event) => {
+    const selectedLanguage = event.target.value;
+    if (props.setSourceLang) {
+      props.setSourceLang(selectedLanguage);
+      console.log(`Source language set to ${selectedLanguage}`);
+    } else if (props.setOutputLang) {
+      props.setOutputLang(selectedLanguage);
+      console.log(`Output language set to ${selectedLanguage}`);
+    } else {
+      console.log("Language dropdown could not detect if it is source or output.");
+    }
+  };
+
+  // Add this code to update the selected value of the dropdown
+  useEffect(() => {
+    if (props.outputLang) {
+      const dropdown = document.querySelector(`select[name=${menuType}]`);
+      dropdown.value = props.outputLang;
+    }
+  }, [props.outputLang, menuType]);
   
     return (
       <div>

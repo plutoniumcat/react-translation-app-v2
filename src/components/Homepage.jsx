@@ -17,7 +17,6 @@ export default function Homepage() {
   const [outputLang, setOutputLang] = useState("english");
   const [input, setInput] = useState('');
   const [translation, setTranslation] = useState('');
-  const [mode, setMode] = useState("input");
 
   const handleTranslate = async (event) => {
     event.preventDefault();
@@ -34,8 +33,21 @@ export default function Homepage() {
     }
   };
 
-  const handleModeSwitch = () => {
-    setMode(mode === "input" ? "output" : "input");
+  const handleSwapFields = () => {
+    const tempInput = input;
+    const tempSourceLang = sourceLang;
+    const tempOutputLang = outputLang;
+  
+    setInput(translation);
+    setSourceLang(tempOutputLang);
+    setOutputLang(tempSourceLang);
+    setTranslation(tempInput);
+  
+    // Update the input dropdown value based on the output language
+    const inputDropdown = document.querySelector('select[name="source-lang"]');
+    if (inputDropdown) {
+      inputDropdown.value = tempOutputLang;
+    }
   };
 
   return (
@@ -43,14 +55,11 @@ export default function Homepage() {
       <UploadText setInput={setInput} />
       <form onSubmit={handleTranslate} className="d-flex flex-column align-items-center">
         <Dropdown sourceLang={sourceLang} setSourceLang={setSourceLang} />
-        {mode === "input" ? (
-          <Recordinput input={input} setInput={setInput} />
-        ) : (
-          <Recordoutput outputText={translation} />
-        )}
+        <Recordinput input={input} setInput={setInput} />
         <button type="submit">Translate</button>
         <Dropdown outputLang={outputLang} setOutputLang={setOutputLang} />
-        <button type="button" onClick={handleModeSwitch}>Switch</button>
+        <Recordoutput outputText={translation} />
+        <button type="button" onClick={handleSwapFields}>Swap Fields</button>
       </form>
     </div>
   );
