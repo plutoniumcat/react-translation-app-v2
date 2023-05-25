@@ -8,14 +8,14 @@ function PreLoader1() {
   const [done, setDone] = useState(undefined);
 
   useEffect(() => {
-    setTimeout(()=>{
+    // setTimeout(()=>{
       fetch(Recordoutput)
       .then(response => response.json())
       .then(json => {
         setData(json);
         setDone(true);
       })
-    }, 2000)
+    // }, 2000)
     
 
   }, [])
