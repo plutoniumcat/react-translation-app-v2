@@ -61,10 +61,10 @@ export default function ImageReader() {
   };
 
   return (
-    <div>
-      <label htmlFor="image-upload">Select an image to upload</label>
+    <div className ="d-flex flex-column align-items-center">
+      <label htmlFor="image-upload" className ="m-2">Select an image to upload</label>
       <input type="file" name="image-upload" onChange={(e) => handleFile(e)} />
-      <button onClick={handleImgSubmit}>Upload</button>
+      <button onClick={handleImgSubmit} className ="m-2">Upload</button>
       <Dropdown sourceLang={sourceLang} setSourceLang={setSourceLang} />
       <Recordinput input={inputString} setInput={setInputString} />
       <Dropdown outputLang={outputLang} setOutputLang={setOutputLang} />
