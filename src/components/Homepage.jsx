@@ -11,25 +11,36 @@ const languageMap = { libreLangMap
 };
 
 export default function Homepage() {
-    const [sourceLang, setSourceLang] = useState("english");
-    const [outputLang, setOutputLang] = useState("english");
-    const [input, setInput] = useState('');
-    const [translation, setTranslation] = useState('');
+  const [sourceLang, setSourceLang] = useState("english");
+  const [outputLang, setOutputLang] = useState("english");
+  const [input, setInput] = useState('');
+  const [translation, setTranslation] = useState('');
 
-    const handleTranslate = async (event) => {
-        event.preventDefault(); // Stops the page from reloading after clicking the translate button
+  const handleTranslate = async (event) => {
+    event.preventDefault();
 
-        console.log(`Translating from ${languageMap[sourceLang]} to ${languageMap[outputLang]}`); // Requesting the translation tool to translate our text
-        console.log(`Text to translate: ${input}`);
+    console.log(`Translating from ${languageMap[sourceLang]} to ${languageMap[outputLang]}`);
+    console.log(`Text to translate: ${input}`);
 
-        try { //Try and catch method to handle errors
-            const response = await libreTranslateAPI.translateText(input, languageMap[sourceLang], languageMap[outputLang]);
-            console.log('Translation response:', response.data);
-            setTranslation(response.data.translatedText);
-        } catch (error) {
-            console.error('Failed to translate text:', error); //To catch the error
-        }
-    };
+    try {
+      const response = await libreTranslateAPI.translateText(input, languageMap[sourceLang], languageMap[outputLang]);
+      console.log('Translation response:', response.data);
+      setTranslation(response.data.translatedText);
+    } catch (error) {
+      console.error('Failed to translate text:', error);
+    }
+  };
+  
+  // Function to handle swap fields
+  const handleSwapFields = () => {
+    const tempInput = input;
+    const tempSourceLang = sourceLang;
+  
+    setInput(translation);
+    setSourceLang(outputLang);
+    setOutputLang(tempSourceLang);
+    setTranslation(tempInput);
+  };
 
     // eslint-disable-next-line no-undef
     useEffect(() => {

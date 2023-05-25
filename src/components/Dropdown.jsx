@@ -41,6 +41,7 @@ export default function Dropdown(props) {
         value={props.sourceLang || props.outputLang}
       >
           <option value="english">English</option>
+          <option value="auto">Auto Detect</option>
           <option value="arabic">Arabic</option>
           <option value="azerbaijani">Azerbaijani</option>
           <option value="catalan">Catalan</option>
@@ -70,7 +71,6 @@ export default function Dropdown(props) {
           <option value="swedish">Swedish</option>
           <option value="turkish">Turkish</option>
           <option value="ukrainian">Ukrainian</option>
-          <option value="auto">Auto Detect</option>
         </select>
       </div>
     );
