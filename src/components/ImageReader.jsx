@@ -5,7 +5,7 @@ import Recordinput from "./Recordinput";
 import Recordoutput from "./Recordoutput";
 import Dropdown from "./Dropdown";
 import { libreLangMap, tessaractLangMap } from '../data/languageMaps';
-import PreLoader1 from "./PreLoader1";
+import ReactLoading from 'react-loading';
 
 export default function ImageReader() {
   const [inputString, setInputString] = useState("");
@@ -83,7 +83,7 @@ export default function ImageReader() {
           <div className="d-flex flex-column align-items-center">
             <Dropdown outputLang={outputLang} setOutputLang={setOutputLang} />
             {isLoading ? (
-              <PreLoader1 /> // Show the loader while translating
+              <ReactLoading type={"bars"} color={"blue"} height={200} width={300} /> // Show the loader while translating
             ) : (
               <Recordoutput outputText={outputString} />
             )}

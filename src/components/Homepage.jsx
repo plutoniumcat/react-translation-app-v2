@@ -5,7 +5,7 @@ import Recordoutput from "./Recordoutput";
 import libreTranslateAPI from "./libreTranslateAPI";
 import UploadText from "./UploadText";
 import { libreLangMap } from "../data/languageMaps";
-import PreLoader1 from "./PreLoader1";
+import ReactLoading from 'react-loading';
 import { Col, Row } from 'react-bootstrap';
 import Errorhandlinglang from "./Errorhandling";
 
@@ -21,6 +21,10 @@ export default function Homepage() {
 
   const handleTranslate = async (event) => {
     event.preventDefault();
+
+    if (!input) { // Do nothing if input box is empty
+      return
+    }
 
     console.log(`Translating from ${languageMap[sourceLang]} to ${languageMap[outputLang]}`);
     console.log(`Text to translate: ${input}`);
@@ -84,7 +88,7 @@ export default function Homepage() {
       <Col md={6} className="mb-3">
         <div className="d-flex flex-column align-items-center">
           {isLoading ? (
-            <PreLoader1 /> // Show the loader while translating/ 2-second timeout function in PreLoader.js
+            <ReactLoading type={"bars"} color={"blue"} height={200} width={300} /> // Show the loader while translating/ 2-second timeout function in PreLoader.js
           ) : (
             <>
               <Dropdown value={outputLang} outputLang={outputLang} setOutputLang={setOutputLang} />
